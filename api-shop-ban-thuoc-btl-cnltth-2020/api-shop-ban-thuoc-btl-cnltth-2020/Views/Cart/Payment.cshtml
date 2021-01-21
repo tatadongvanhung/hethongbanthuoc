@@ -1,0 +1,159 @@
+﻿
+@{
+    ViewBag.Title = "Payment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using api_shop_ban_thuoc_btl_cnltth_2020.Models;
+@model Cart
+
+<body>
+	<!--
+	Body Section
+	-->
+	<div class="row">
+
+		@{Html.RenderAction("_Slidebar", "Home");}
+
+		<div class="span9">
+			<ul class="breadcrumb">
+				<li>
+					<a href="/home/index">Trang chủ</a> <span class="divider">/</span>
+				</li>
+				<li>
+					<a href="/cart/cart">Giỏ hàng</a> <span class="divider">/</span>
+				</li>
+				<li class="active">Đặt hàng</li>
+			</ul>
+			@{ int i = 0;
+				int? sum = 0;
+				foreach (CartItem it in Model.Lines)
+				{
+					i++;
+					sum += it.Quantity * it.Thuoc.GiaBan;
+				}
+			}
+
+			<div class="well">
+
+				<form class="form-horizontal" action="/Cart/Payment" method="POST" onsubmit="return CheckForm()">
+					@{
+						KHACHHANG acc = ViewBag.account;
+
+						<input type="hidden" name="makh" value="@acc.MaKH" />
+						<div class="control-group">
+							<label class="control-label">
+								Họ Tên <sup style="color: red">*</sup>
+							</label>
+							<div class="controls">
+								<input type="text" id="hoten" name="hoten"  value="@acc.HoTen"/>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">Email <sup style="color: red">*</sup></label>
+							<div class="controls">
+								<input name="email" id="email" type="email" value="@acc.Email" />
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">SĐT <sup style="color: red">*</sup></label>
+							<div class="controls">
+								<input type="text" name="sdt" id="sodienthoai" value="@acc.SDT" />
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label">
+								Địa chỉ <sup style="color: red">*</sup>
+							</label>
+							<div class="controls">
+								<textarea id="diachi" name="diachi" placeholder="Địa chỉ nhận hàng">@acc.Diachi</textarea>
+
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">
+								Lời nhắn<sup style="color: red"></sup>
+							</label>
+							<div class="controls">
+								<textarea id="ghichu" name="ghichu" placeholder="Lời nhắn cho chúng tôi"></textarea>
+								<span style="margin-left: 15px" id='message'></span>
+							</div>
+						</div>
+						<input type="hidden" name="tongtien" value="@sum" />
+						<div class="control-group">
+							<div class="controls">
+								<input type="submit" name="submitAccount" value="Đặt hàng" class="exclusive shopBtn">
+								<span style="margin-left: 15px" id='message'></span>
+							</div>
+
+						</div>
+
+					}
+
+				</form>
+			</div>
+
+			<div class="well">
+				<table class="table table-bordered table-condensed">
+					<thead>
+						<tr>
+							<th style="text-align:center">Hình ảnh</th>
+							<th style="text-align:center">Sản phẩm</th>
+							<th style="text-align:center">Đơn giá</th>
+							<th style="text-align:center">Số lượng</th>
+							<th style="text-align:center">Thành tiền</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (CartItem it in Model.Lines)
+						{
+
+							<tr>
+								<td style="text-align:center;"><img width="80" src="~/Content/assets/img/@it.Thuoc.HinhAnh" alt=""></td>
+								<td style="text-align:center; padding-top:30px;">@it.Thuoc.TenSP</td>
+								<td style="text-align:center; padding-top:30px;">@it.Thuoc.GiaBan đ</td>
+								<td style="text-align:center; padding-top:30px;">@it.Quantity</td>
+								<td style="text-align:center; padding-top:30px;">@it.ThanhTien đ</td>
+
+							</tr>
+
+						}
+						<tr>
+							<td style="text-align:center" colspan="4" class="alignR"><strong>Tổng Tiền:	</strong></tdstyle="text-align:center">
+							<td style="text-align:center; color:orangered;"><strong>@sum đ</strong></td>
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+
+
+		</div>
+	</div>
+	<script>
+	function CheckForm()
+	{
+	    // Bước 1: Lấy các giá trị cần nhập
+	    var hoten = document.getElementById('hoten').value;
+	    var email = document.getElementById('email').value;
+	    var sdt = document.getElementById('sodienthoai').value;
+	    var diachi = document.getElementById('diachi').value;
+
+
+
+	    // Bước 2: Kiểm tra dữ liệu hợp lệ hay không
+	    if (hoten == '' || email =='' || sdt == '' || diachi ==''){
+	    	document.getElementById('message').style.color = 'red';
+	    	document.getElementById('message').innerHTML = '* là bắt buộc, Vui lòng nhập đầy đủ!';
+	    }
+
+	    else{
+
+	    	return true;
+	    }
+
+	    return false;
+	}
+	</script>
+</body>
+

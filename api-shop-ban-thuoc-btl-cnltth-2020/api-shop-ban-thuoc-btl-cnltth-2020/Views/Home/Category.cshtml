@@ -1,0 +1,38 @@
+﻿
+@{
+	ViewBag.Title = "Category";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using api_shop_ban_thuoc_btl_cnltth_2020.Models
+@model List<SANPHAM>
+
+<h3>Loại thuốc </h3>
+@{ var group = Model.GroupBy(r => Model.IndexOf(r) / 4).ToList();
+
+	foreach (var parentItem in group)
+	{
+	<ul class="thumbnails">
+
+		@foreach (SANPHAM it in parentItem)
+		{
+
+			<li class="span3">
+				<div class="thumbnail">
+					<a href="product_details.html" class="overlay"></a>
+					<a class="zoomTool" href="/Home/product/@it.MaSP" title=""><span class="icon-search"></span> XEM</a>
+					<a href="/Home/product/@it.MaSP"><img src="~/Content/assets/img/@it.HinhAnh" alt=""></a>
+					<div class="caption cntr">
+						<p>@it.TenSP</p>
+						<p><strong> @it.GiaBan đ</strong></p>
+						<h4><a class="shopBtn" href="#" title="THÊM VÀO GIỎ"> THÊM VÀO GIỎ </a></h4>
+						<br class="clr">
+					</div>
+				</div>
+			</li>
+		}
+
+	</ul>
+	}
+}
+

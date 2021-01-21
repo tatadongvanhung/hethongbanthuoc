@@ -1,0 +1,111 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/ADMIN/Views/Shared/_AdmiLayout.cshtml";
+}
+@section dangnhap{
+	@Html.Action("_DangNhap")
+}
+<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+	@*<form role="search">
+		<div class="form-group">
+			<input type="text" class="form-control" placeholder="Search">
+			<button class="btn mt-3" type="submit" value="Tìm"></button>
+		</div>
+	</form>*@
+	<ul class="nav menu">
+		<li class="active"><a href="/ADMIN/Admin/Index"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg> Home</a></li>
+		<li><a href="/ADMIN/Admin/Users"><svg class="glyph stroked male user "><use xlink:href="#stroked-male-user" /></svg>Quản lý thành viên</a></li>
+		<li><a href="/ADMIN/Admin/DanhMuc"><svg class="glyph stroked open folder"><use xlink:href="#stroked-open-folder" /></svg>Quản lý danh mục</a></li>
+		<li><a href="/ADMIN/Admin/SanPham"><svg class="glyph stroked bag"><use xlink:href="#stroked-bag"></use></svg>Quản lý thuốc</a></li>
+		<li><a href="/ADMIN/Admin/DonHang"><svg class="glyph stroked two messages"><use xlink:href="#stroked-two-messages" /></svg> Quản lý đơn hàng</a></li>
+
+
+	</ul>
+
+</div>
+<!--/.sidebar-->
+
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+	<div class="row">
+		<ol class="breadcrumb">
+			<li><a href="/ADMIN/Admin/Index"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
+			<li class="active">Trang chủ quản trị</li>
+		</ol>
+	</div>
+	<!--/.row-->
+
+	<div class="row">
+		<div class="col-lg-12">
+			<h1 class="page-header">Trang chủ quản trị</h1>
+		</div>
+	</div>
+	<!--/.row-->
+
+	<div class="row">
+
+		<div class="col-xs-12 col-md-6 col-lg-3">
+			<div class="panel panel-blue panel-widget ">
+				<div class="row no-padding">
+                    <a href="/ADMIN/Admin/SanPham">
+                        <div class="col-sm-3 col-lg-5 widget-left">
+                            <svg class="glyph stroked bag"><use xlink:href="#stroked-bag"></use></svg>
+                        </div>
+                        <div class="col-sm-9 col-lg-7 widget-right">
+                            <div class="large">@ViewBag.SLSanPham</div>
+                            <div class="text-muted">Sản Phẩm</div>
+                        </div>
+                    </a>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-md-6 col-lg-3">
+			<div class="panel panel-orange panel-widget">
+				<div class="row no-padding">
+                    <a href="/ADMIN/Admin/DanhMuc">
+                        <div class="col-sm-3 col-lg-5 widget-left">
+                            <svg class="glyph stroked embed-responsive"><use xlink:href="#stroked-empty-message"></use></svg>
+                        </div>
+                        <div class="col-sm-9 col-lg-7 widget-right">
+                            <div class="large">@ViewBag.SLDanhMuc</div>
+                            <div class="text-muted">Danh Mục</div>
+                        </div>
+                    </a>		
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-md-6 col-lg-3">
+			<div class="panel panel-teal panel-widget">
+                <a href="/ADMIN/Admin/Users">
+                    <div class="row no-padding">
+                        <div class="col-sm-3 col-lg-5 widget-left">
+                            <svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg>
+                        </div>
+                        <div class="col-sm-9 col-lg-7 widget-right">
+                            <div class="large">@ViewBag.SLThanhVien</div>
+                            <div class="text-muted">Thành Viên</div>
+                        </div>
+                    </div>
+                </a>	
+			</div>
+		</div>
+		<div class="col-xs-12 col-md-6 col-lg-3">
+			<div class="panel panel-red panel-widget">
+                <a href="/ADMIN/Admin/DonHang">
+                    <div class="row no-padding">
+                        <div class="col-sm-3 col-lg-5 widget-left">
+                            <svg class="glyph stroked app-window-with-content"><use xlink:href="#stroked-app-window-with-content"></use></svg>
+                        </div>
+                        <div class="col-sm-9 col-lg-7 widget-right">
+                            <div class="large">@ViewBag.SLDonHang</div>
+                            <div class="text-muted">Đơn Hàng</div>
+                        </div>
+                    </div>
+                </a>				
+			</div>
+		</div>
+
+	</div>
+	<!--/.row-->
+</div>
+

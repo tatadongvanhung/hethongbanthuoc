@@ -1,0 +1,85 @@
+﻿
+@{
+    ViewBag.Title = "Add_DanhMuc";
+    Layout = "~/Areas/ADMIN/Views/Shared/_AdmiLayout.cshtml";
+}
+
+<link href="~/Content/Admin/css/bootstrap.min.css" rel="stylesheet">
+<link href="~/Content/Admin/css/datepicker3.css" rel="stylesheet">
+<link href="~/Content/Admin/css/bootstrap-table.css" rel="stylesheet">
+<link href="~/Content/Admin/css/styles.css" rel="stylesheet">
+
+<!--Icons-->
+<script src="~/Content/Admin/js/lumino.glyphs.js"></script>
+
+<script src="~/Content/Admin/js/jquery-1.11.1.min.js"></script>
+<script src="~/Content/Admin/js/bootstrap.min.js"></script>
+<script src="~/Content/Admin/js/bootstrap-table.js"></script>
+@section dangnhap{
+	@Html.Action("_DangNhap")
+}
+<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+	<form role="search" action="/ADMIN/Admin/TimKiemDanhMuc" method="post">
+		<div class="form-group">
+			<input type="text" name="search" class="form-control" placeholder="Search">
+		</div>
+	</form>
+	<ul class="nav menu">
+		<li><a href="/ADMIN/Admin/Index"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg> Home</a></li>
+		<li><a href="/ADMIN/Admin/Users"><svg class="glyph stroked male user "><use xlink:href="#stroked-male-user" /></svg>Quản lý thành viên</a></li>
+		<li class="active"><a href="/ADMIN/Admin/DanhMuc"><svg class="glyph stroked open folder"><use xlink:href="#stroked-open-folder" /></svg>Quản lý danh mục</a></li>
+		<li><a href="/ADMIN/Admin/SanPham"><svg class="glyph stroked bag"><use xlink:href="#stroked-bag"></use></svg>Quản lý thuốc</a></li>
+		<li><a href="/ADMIN/Admin/DonHang"><svg class="glyph stroked two messages"><use xlink:href="#stroked-two-messages" /></svg> Quản lý đơn hàng</a></li>
+	</ul>
+
+</div>
+<!--/.sidebar-->
+
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+	<div class="row">
+		<ol class="breadcrumb">
+			<li><a href="/ADMIN/Admin/DanhMuc"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
+			<li><a href="">Quản lý danh mục</a></li>
+			<li class="active">Thêm danh mục</li>
+		</ol>
+	</div>
+	<!--/.row-->
+
+	<div class="row">
+		<div class="col-lg-12">
+			<h1 class="page-header">Thêm danh mục</h1>
+		</div>
+	</div>
+	<!--/.row-->
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="col-md-8">
+						@if (TempData["Alert"] != null)
+						{
+							<div class="alert alert-danger">@TempData["Alert"]</div>
+						}
+
+						<form role="form" method="post" action="/ADMIN/Admin/Add_DanhMuc">
+							<div class="form-group">
+								<label>Mã danh mục:</label>
+								<input required type="text" name="MaDM" class="form-control" placeholder="Mã loại thuốc...">
+
+								<label>Tên danh mục:</label>
+								<input required type="text" name="TenDM" class="form-control" placeholder="Tên loại thuốc...">
+
+							</div>
+							<button type="submit" name="sbm" class="btn btn-success">Thêm mới</button>
+							<button type="reset" class="btn btn-default">Làm mới</button>
+						</form>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<!-- /.col-->
+	</div>
+</div>
+<!--/.main-->
+

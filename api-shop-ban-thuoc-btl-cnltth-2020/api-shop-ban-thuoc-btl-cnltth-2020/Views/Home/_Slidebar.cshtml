@@ -1,0 +1,36 @@
+﻿
+@{
+	Layout = null;
+}
+@using api_shop_ban_thuoc_btl_cnltth_2020.Models
+@model IEnumerable<DANHMUC>
+
+<div id="sidebar" class="span3">
+	<div class="well well-small">
+		<ul class="nav nav-list">
+
+			@foreach (DANHMUC it in Model)
+			{
+				@*<a class="dropdown - item menu-item" id="menu" href="/Home/DANHMUC/@it.MaDM">
+					@it.TenDM
+					<script>loadData('getthuoc1/'+@it.MaDM</script>
+				</a>*@
+				<li><a href="/home/category/@it.MaDM"><span class="icon-chevron-right"></span>@it.TenDM</a></li>
+			}
+
+		</ul>
+	</div>
+
+	<div class="well well-small alert alert-warning cntr">
+		<h2>Giảm giá 50%</h2>
+		<p>
+			áp dụng cho hóa đơn thanh toán qua MOMO <br><br><a class="defaultBtn" href="#">Nhấn xem </a>
+		</p>
+	</div>
+	<div class="well well-small"><a href="#"><img src="/Content/assets/img/paypal.jpg" alt="payment method paypal"></a></div>
+
+	<a class="shopBtn btn-block" href="#">Sắp ra mắt <br><small>Nhấn để xem</small></a>
+	<br>
+	<br>
+
+</div>

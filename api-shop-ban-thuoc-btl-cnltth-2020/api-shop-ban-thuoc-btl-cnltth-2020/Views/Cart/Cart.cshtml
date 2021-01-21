@@ -1,0 +1,110 @@
+﻿
+@{
+    ViewBag.Title = "Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using api_shop_ban_thuoc_btl_cnltth_2020.Models;
+@model Cart 
+
+<div class="row" style="height: 100vh;">
+	<div class="span12">
+		<ul class="breadcrumb">
+			<li><a href="/home/index">Trang chủ</a> <span class="divider">/</span></li>
+			<li class="active">Giỏ hàng</li>
+		</ul>
+		<div class="well well-small">
+			@*<h1>Check Out <small class="pull-right"> 2 Items are in the cart </small></h1>*@
+
+			@if (Model.Lines.Count() > 0)
+			{
+				<form method="post" action="/Cart/UpdateCart">
+					<table class="table table-bordered table-condensed">
+						<thead>
+							<tr>
+								<th style="text-align:center">Hình ảnh</th>
+								<th style="text-align:center">Sản phẩm</th>
+								<th style="text-align:center">Đơn giá</th>
+								<th style="text-align:center">Số lượng</th>
+								<th style="text-align:center">Thành tiền</th>
+							</tr>
+						</thead>
+						<tbody>
+							@{ int i = 0;
+								int? sum = 0;
+							}
+							@foreach (CartItem it in Model.Lines)
+							{
+
+								<tr>
+									<td style="text-align:center"><img width="80" src="~/Content/assets/img/@it.Thuoc.HinhAnh" alt=""></td>
+									<td style="text-align:center; padding-top:30px;">@it.Thuoc.TenSP</td>
+									<td style="text-align:center; padding-top:30px;">@it.Thuoc.GiaBan đ </td>
+									<td style="text-align:center; padding-top:25px;">
+										<input type="hidden" name="masp[@i]" value="@it.Thuoc.MaSP" />
+										<input class="span1" style="max-width:34px" name="qty[@i]" value="@it.Quantity" id="appendedInputButtons" size="16" type="number">
+										<div class="input-append">
+											<a href="/Cart/RemoveLine/@it.Thuoc.MaSP"><button class="btn btn-mini btn-danger" type="button"><span class="icon-remove">Xóa</span></button></a>
+										</div>
+									</td>
+									<td style="text-align:center; padding-top:30px;">@it.ThanhTien đ</td>
+								</tr>
+								i++;
+								sum += it.Quantity * it.Thuoc.GiaBan;
+
+							}
+
+							<tr>
+								<td style="text-align:center" colspan="4" class="alignR"><strong>Tổng Tiền:	</strong></td>
+								<td style="text-align:center; color:orangered;"><strong>@sum đ</strong></td>
+							</tr>
+
+						</tbody>
+					</table>
+					<hr class="soften" />
+					<button type="submit" class="shopBtn"> CẬP NHẬT GIỎ HÀNG</button>
+				</form>
+				<hr class="soften" />
+				<a href="/home/index" class="shopBtn btn-large"><span class="icon-arrow-left"></span> Quay lại mua sắm </a>
+
+				api_shop_ban_thuoc_btl_cnltth_2020.Models.KHACHHANG auth = (api_shop_ban_thuoc_btl_cnltth_2020.Models.KHACHHANG)Session["LoginKH"];
+				if (auth == null)
+				{
+					<a href="/Account/logincart" class="shopBtn btn-large pull-right">Tiếp <span class="icon-arrow-right"></span></a>
+				}else{
+		            <a href="/Cart/payment" class="shopBtn btn-large pull-right">Tiếp <span class="icon-arrow-right"></span></a>				 
+				}
+
+
+
+
+
+			  }
+			 else
+								{
+
+				<table class="table table-bordered table-condensed">
+					<thead>
+						<tr>
+							<th style="text-align:center">Hình ảnh</th>
+							<th style="text-align:center">Sản phẩm</th>
+							<th style="text-align:center">Đơn giá</th>
+							<th style="text-align:center">Số lượng</th>
+							<th style="text-align:center">Thành tiền</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td style="text-align:center;" colspan="5" class="alignR"><strong>GIỎ HÀNG TRỐNG</strong></td>
+						</tr>
+					</tbody>
+				</table>
+				<a href="/home/index" class="shopBtn btn-large"><span class="icon-arrow-left"></span> Quay lại mua sắm </a>
+			}
+
+
+
+		</div>
+	</div>
+</div>
+

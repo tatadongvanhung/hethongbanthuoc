@@ -1,0 +1,192 @@
+﻿
+@{
+	ViewBag.Title = "Regiter";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<body>
+	<div class="row">
+
+		@{Html.RenderAction("_Slidebar", "Home");}
+
+		<div class="span9">
+			<ul class="breadcrumb">
+				<li>
+					<a href="/home/index">Trang chủ</a> <span class="divider">/</span>
+				</li>
+				<li class="active">Đăng ký tài khoản</li>
+			</ul>
+
+			<div class="well">
+				@if (TempData["error"] != null)
+				{
+					<div class="alert alert-danger">@TempData["error"]</div>
+				}
+				@if (TempData["success"] != null)
+				{
+					<div class="alert alert-success">@TempData["success"]</div>
+				}
+				<form class="form-horizontal" action="/Account/Regiter" method="POST" onsubmit="return CheckForm()">
+
+					<div class="control-group">
+						<label class="control-label">
+							Họ Tên <sup style="color: red">*</sup>
+						</label>
+						<div class="controls">
+							<input type="text" name="hoten" placeholder=" Họ tên" id="hoten" onkeyup='' />
+							<span style="margin-left: 15px" id='hoten1'></span>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label">SĐT <sup style="color: red">*</sup></label>
+						<div class="controls">
+							<input type="text" name="sdt" onkeyup='' placeholder=" Số điện thoại" maxlength="10" id="sodienthoai" />
+							<span style="margin-left: 15px" id='sodienthoai1'></span>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label">Email <sup style="color: red">*</sup></label>
+						<div class="controls">
+							<input type="email" value="" name="email" onkeyup='checkInput();' placeholder=" Email" id="email" />
+							<span style="margin-left: 15px" id='email1'></span>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label">
+							Địa chỉ <sup style="color: red">*</sup>
+						</label>
+						<div class="controls">
+							<textarea name="diachi" placeholder="Địa chỉ" id="diachi" onkeyup=''></textarea>
+							<span style="margin-left: 15px" id='diachi1'></span>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label">
+							Mật khẩu <sup style="color: red">*</sup>
+						</label>
+						<div class="controls">
+							<input type="password" name="matkhau" onkeyup='check();'
+								   placeholder=" Mật khẩu" maxlength="10" id="password" />
+							<span style="margin-left: 15px" id='password1'></span>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label">Xác nhận <sup style="color: red">*</sup></label>
+						<div class="controls">
+							<input type="password" placeholder=" Xác nhận mật khẩu"
+								   maxlength="10" id="confirm_password" onkeyup='check();'>
+							<span style="margin-left: 15px" id='confirm_password1'></span>
+						</div>
+					</div>
+					<div class="control-group">
+						<div class="controls">
+							<input type="submit" name="submitAccount" value="Đăng ký" class="exclusive shopBtn">
+							<input type="reset" name="" value="Làm mới" class="exclusive defaultBtn">
+
+						</div>
+
+					</div>
+				</form>
+			</div>
+
+
+		</div>
+	</div>
+
+<script>
+
+	// Xác nhận mật khẩu
+	var check = function () {
+		if (document.getElementById('password').value == document
+			.getElementById('confirm_password').value) {
+			document.getElementById('confirm_password1').style.color = 'green';
+			document.getElementById('confirm_password1').innerHTML = 'Xác nhận mật khẩu chính xác!';
+		} else {
+			document.getElementById('confirm_password1').style.color = 'red';
+			document.getElementById('confirm_password1').innerHTML = 'Xác nhận mật khẩu không đúng!';
+		}
+
+	}
+
+
+	
+	function CheckForm() {
+		// Bước 1: Lấy các giá trị cần nhập
+		var hoten = document.getElementById('hoten').value;
+		var email = document.getElementById('email').value;
+		var sdt = document.getElementById('sodienthoai').value;
+		var diachi = document.getElementById('diachi').value;
+		var password = document.getElementById('password').value;
+		var confirm_password = document.getElementById('confirm_password').value;
+
+
+
+		// Bước 2: Kiểm tra dữ liệu hợp lệ hay không
+		if (hoten == '') {
+			document.getElementById('hoten1').style.color = 'red';
+			document.getElementById('hoten1').innerHTML = 'Bạn chưa nhập Họ tên!';
+		}
+		
+		else if (sdt == '') {
+			document.getElementById('sodienthoai1').style.color = 'red';
+			document.getElementById('sodienthoai1').innerHTML = 'Bạn chưa nhập Số điện thoại!';
+		}
+
+		else if (email == '') {
+			document.getElementById('email1').style.color = 'red';
+			document.getElementById('email1').innerHTML = 'Bạn chưa nhập Email!';
+		}
+
+		else if (diachi == '') {
+			document.getElementById('diachi1').style.color = 'red';
+			document.getElementById('diachi1').innerHTML = 'Bạn chưa nhập Địa chỉ!';
+		}
+
+		else if (password == '') {
+			document.getElementById('password1').style.color = 'red';
+			document.getElementById('password1').innerHTML = 'Bạn chưa nhập Mật khẩu!';
+		}
+
+		else if (confirm_password == '') {
+			document.getElementById('confirm_password1').style.color = 'red';
+			document.getElementById('confirm_password1').innerHTML = 'Bạn chưa xác nhận lại Mật khẩu!';
+		}
+
+		else if (confirm_password != password) {
+			document.getElementById('confirm_password1').style.color = 'red';
+			document.getElementById('confirm_password1').innerHTML = 'Xác nhận mật khẩu không đúng!';
+		}
+
+		else {
+
+			return true;
+		}
+
+		return false;
+	}
+
+		// Email đã tồn tại hay chưa
+
+	/* function your_javascript_fun_name() {
+		$.ajax({
+			type : 'POST',
+			url : 'show.ajax',//this is url mapping for controller
+			success : function(response) {
+				alert(response);
+							 //this response is list of object commming from server
+			},
+			error : function() {
+				alert("opps error occured");
+			}
+		});
+	} */
+
+</script>
+
+</body>
+

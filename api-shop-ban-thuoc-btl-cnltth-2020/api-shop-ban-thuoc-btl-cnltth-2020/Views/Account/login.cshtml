@@ -1,0 +1,104 @@
+﻿
+@{
+	ViewBag.Title = "login";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@{
+	ViewBag.Title = "Regiter";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<body>
+	<div class="row">
+
+		@{Html.RenderAction("_Slidebar", "Home");}
+
+		<div class="span9">
+			<ul class="breadcrumb">
+				<li>
+					<a href="/home/index">Trang chủ</a> <span class="divider">/</span>
+				</li>
+				<li class="active">Đăng nhập hệ thống</li>
+			</ul>
+
+			<div class="well">
+				<form class="form-horizontal" action="/account/dangnhap" method="POST" onsubmit="return CheckForm()">
+					@if (TempData["error"] != null)
+					{
+						<div class="alert alert-danger">@TempData["error"]</div>
+					}
+					@if (TempData["success"] != null)
+					{
+						<div class="alert alert-success">@TempData["success"]</div>
+					}
+					<div class="control-group">
+						<label class="control-label">Số điện thoại <sup style="color: red">*</sup></label>
+						<div class="controls">
+							<input type="text" value="" name="sdt" onkeyup='checkInput();' placeholder="Số điện thoại" id="email" />
+							<span style="margin-left: 15px" id='email1'></span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">
+							Mật khẩu <sup style="color: red">*</sup>
+						</label>
+						<div class="controls">
+							<input type="password" name="matkhau" onkeyup='check();'
+								   placeholder=" Mật khẩu" maxlength="10" id="password" />
+							<span style="margin-left: 15px" id='password1'></span>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<div class="controls">
+							<input type="submit" name="submitAccount" value="Đăng nhập" class="exclusive shopBtn">
+							<input type="reset" name="" value="Làm mới" class="exclusive defaultBtn">
+
+						</div>
+
+					</div>
+				</form>
+			</div>
+
+
+		</div>
+	</div>
+
+	<script>
+
+
+	function CheckForm() {
+		// Bước 1: Lấy các giá trị cần nhập
+
+		var email = document.getElementById('email').value;
+		var password = document.getElementById('password').value;
+
+
+
+		// Bước 2: Kiểm tra dữ liệu hợp lệ hay không
+
+		if (email == '') {
+			document.getElementById('email1').style.color = 'red';
+			document.getElementById('email1').innerHTML = 'Bạn chưa nhập SĐT!';
+		}
+		else if (password == '') {
+			document.getElementById('password1').style.color = 'red';
+			document.getElementById('password1').innerHTML = 'Bạn chưa nhập Mật khẩu!';
+		}
+		else {
+
+			return true;
+		}
+
+		return false;
+	}
+
+	</script>
+
+</body>
+
+
+

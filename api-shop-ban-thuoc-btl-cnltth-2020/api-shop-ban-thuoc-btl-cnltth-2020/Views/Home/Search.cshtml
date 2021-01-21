@@ -1,0 +1,84 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using api_shop_ban_thuoc_btl_cnltth_2020.Models
+@model List<SANPHAM>
+
+<div class="row">
+    @Html.Action("_Slidebar")
+    <div class="span9">
+        <div class="well np">
+            <div id="myCarousel" class="carousel slide homCar">
+                <div class="carousel-inner">
+                    <div class="item">
+                        <img style="width:100%" src="~/Content/assets/img/b1.png" alt="">
+                    </div>
+                    <div class="item">
+                        <img style="width:100%" src="~/Content/assets/img/b2.png" alt="">
+
+                    </div>
+                    <div class="item active">
+                        <img style="width:100%" src="~/Content/assets/img/b3.png" alt="">
+
+                    </div>
+
+                </div>
+                <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+                <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
+            </div>
+        </div>
+        <!--
+        New Products
+        -->
+        <!--
+        Featured Products
+        -->
+        <div class="well well-small">
+            <h3><a class="btn btn-mini pull-right" href="/home/index" title="View more">Xem thêm <span class="icon-plus"></span></a> Sản phẩm  </h3>
+
+            <hr class="soften" />
+            <div class="row-fluid">
+
+                @{ var group = Model.GroupBy(r => Model.IndexOf(r) / 3).ToList();
+
+                    foreach (var parentItem in group)
+                    {
+                        <ul class="thumbnails">
+
+                            @foreach (SANPHAM it in parentItem)
+                            {
+
+                                <li class="span4">
+                                    <div class="thumbnail">
+
+                                        <a class="zoomTool" href="/Home/Product/@it.MaSP" title="Tên sản phẩm"><span class="icon-search"></span> XEM</a>
+                                        <a href="/Home/Product/@it.MaSP"><img src="~/Content/assets/img/@it.HinhAnh" alt=""></a>
+                                        <div class="caption cntr">
+                                            <p>@it.TenSP</p>
+                                            <p><strong> @it.GiaBan đ</strong></p>
+                                            <h4><a class="shopBtn" href="/Cart/AddItem/@it.MaSP" title="THÊM VÀO GIỎ"> THÊM VÀO GIỎ </a></h4>
+                                            <br class="clr">
+                                        </div>
+                                    </div>
+                                </li>
+
+                            }
+
+                        </ul>
+                    }
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--
+Clients
+-->
+<section class="our_client">
+    <hr class="soften" />
+</section>
+

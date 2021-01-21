@@ -1,0 +1,65 @@
+﻿
+@{
+	ViewBag.Title = "CHI TIẾT ĐƠN HÀNG";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using api_shop_ban_thuoc_btl_cnltth_2020.Models;
+@model List<VIEWCHITIET>
+
+<div class="row" style="height: 100vh;">
+	<div class="span12">
+		<ul class="breadcrumb">
+			<li><a href="/home/index">Trang chủ</a> <span class="divider">/</span></li>
+			<li class="active">Chi tiết đơn hàng</li>
+		</ul>
+		<div class="well well-small">
+			
+			<table class="table table-bordered table-condensed">
+				<thead>
+					<tr>
+						<th style="text-align:center">STT</th>
+						<th style="text-align:center">Mã đơn hàng</th>
+						<th style="text-align:center">Hình ảnh</th>
+						<th style="text-align:center">Tên SP</th>
+						<th style="text-align:center">Đơn giá</th>
+						<th style="text-align:center">Số lượng</th>
+						<th style="text-align:center">Thành Tiền</th>
+
+					</tr>
+				</thead>
+				<tbody>
+					@{
+						if (Model != null)
+						{
+							int i = 0;
+							foreach (VIEWCHITIET it in Model)
+							{
+								i++;
+								<tr>
+									<td style="text-align:center; padding-top:30px;">@i</td>
+									<td style="text-align:center; padding-top:30px;">@it.MaDH</td>
+									<td style="text-align:center"><img width="80" src="~/Content/assets/img/@it.HinhAnh" alt=""></td>
+									<td style="text-align:center; padding-top:30px;">@it.TenSP</td>
+									<td style="text-align:center; padding-top:30px;">@it.DonGia đ </td>
+									<td style="text-align:center; padding-top:30px;">@it.SoLuong</td>
+									<td style="text-align:center; padding-top:30px;">@it.ThanhTien đ </td>
+								</tr>
+							
+						}
+					}
+					else
+					{
+						<tr>
+							<td style="text-align:center;" colspan="7" class="alignR"><strong>ĐƠN HÀNG TRỐNG</strong></td>
+						</tr>
+					}
+					}
+
+					</tbody>
+				</table>
+
+		</div>
+	</div>
+</div>
+

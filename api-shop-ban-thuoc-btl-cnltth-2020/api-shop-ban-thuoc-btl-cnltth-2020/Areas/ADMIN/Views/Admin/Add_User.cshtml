@@ -1,0 +1,103 @@
+﻿
+@{
+    ViewBag.Title = "Add_User";
+    Layout = "~/Areas/ADMIN/Views/Shared/_AdmiLayout.cshtml";
+}
+@section dangnhap{
+    @Html.Action("_DangNhap")
+}
+@using api_shop_ban_thuoc_btl_cnltth_2020.Models;
+@model IEnumerable<ROLE>
+<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+    <form role="search" action="/ADMIN/Admin/TimKiemUsers" method="post">
+        <div class="form-group">
+            <input type="text" name="search" class="form-control" placeholder="Search">
+        </div>
+    </form>
+    <ul class="nav menu">
+        <li><a href="/ADMIN/Admin/Index"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg> Home</a></li>
+        <li class="active"><a href="/ADMIN/Admin/Users"><svg class="glyph stroked male user "><use xlink:href="#stroked-male-user" /></svg>Quản lý thành viên</a></li>
+        <li><a href="/ADMIN/Admin/DanhMuc"><svg class="glyph stroked open folder"><use xlink:href="#stroked-open-folder" /></svg>Quản lý danh mục</a></li>
+        <li><a href="/ADMIN/Admin/SanPham"><svg class="glyph stroked bag"><use xlink:href="#stroked-bag"></use></svg>Quản lý thuốc</a></li>
+        <li><a href="/ADMIN/Admin/DonHang"><svg class="glyph stroked two messages"><use xlink:href="#stroked-two-messages" /></svg> Quản lý đơn hàng</a></li>
+    </ul>
+
+</div>
+<!--/.sidebar-->
+
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+    <div class="row">
+        <ol class="breadcrumb">
+            <li><a href="/ADMIN/Admin/Users"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
+            <li><a href="">Quản lý thành viên quản trị</a></li>
+            <li class="active">Thêm thành viên quản trị</li>
+        </ol>
+    </div>
+    <!--/.row-->
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Thêm thành viên quản trị</h1>
+        </div>
+    </div>
+    <!--/.row-->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="col-md-8">
+
+
+
+                        @if (TempData["Alert"] != null)
+                        {
+                            <div class="alert alert-danger">@TempData["Alert"]</div>
+                        }
+
+
+                        <form role="form" method="post">
+                            <div class="form-group">
+                                <label>Mã người dung</label>
+                                <input name="MaQT" required class="form-control" placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label>Tên</label>
+                                <input name="HoTen" required type="text" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>SĐT</label>
+                                <input name="SDT" required type="text" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Mật khẩu</label>
+                                <input name="MatKhau" required type="password" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Xác nhận mật khẩu</label>
+                                <input name="reMatKhau" required type="password" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Quyền</label>
+                                <select name="ROLE" class="form-control">
+                                    @{
+                                        foreach (ROLE it in Model)
+                                        {
+                                            <option value=@it.IDRole>@it.RoleName</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                            <button name="sbm" type="submit" class="btn btn-success">Thêm mới</button>
+                            <button type="reset" class="btn btn-default">Làm mới</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- /.col-->
+    </div>
+    <!-- /.row -->
+
+</div>
+<!--/.main-->

@@ -1,0 +1,224 @@
+﻿
+@{
+    ViewBag.Title = "Account";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using api_shop_ban_thuoc_btl_cnltth_2020.Models
+@model KHACHHANG
+
+
+<div class="row">
+	@{Html.RenderAction("_Slidebar", "Home");}
+	<div class="span9">
+		<ul class="breadcrumb">
+			<li>
+				<a href="/Home/index">Trang chủ</a> <span class="divider">/</span>
+			</li>
+			<li class="active">Thông tin tài khoản</li>
+		</ul>
+
+		<div class="well">
+			<ul id="productDetail" class="nav nav-tabs">
+				<li class="active"><a href="#info" data-toggle="tab"> THÔNG TIN TÀI KHOẢN</a></li>
+				<li class=""><a href="#changepassword" data-toggle="tab"> ĐỔI MẬT KHẨU</a></li>
+			</ul>
+			<div id="myTabContent" class="tab-content tabWrapper">
+				<div class="tab-pane fade active in" id="info">
+					
+					@if (TempData["error"] != null)
+					{
+						<div class="alert alert-danger">@TempData["error"]</div>
+					}
+					@if (TempData["success"] != null)
+					{
+						<div class="alert alert-success">@TempData["success"]</div>
+					}
+					<form class="form-horizontal" action="/Account/ChangeInfo" method="POST" onsubmit="return CheckForm()">
+
+						<input type="hidden" name="makh" value="@Model.MaKH" />
+
+						<div class="control-group">
+							<label class="control-label">
+								Họ Tên <sup style="color: red">*</sup>
+							</label>
+							<div class="controls">
+								<input type="text" id="hoten" name="hoten" value="@Model.HoTen" />
+								<span style="margin-left: 15px" id='hoten1'></span>
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label">SĐT <sup style="color: red">*</sup></label>
+							<div class="controls">
+								<input type="text" id="sdt" name="sdt" value="@Model.SDT" />
+								<span style="margin-left: 15px" id='sdt1'></span>
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label">Email <sup style="color: red">*</sup></label>
+							<div class="controls">
+								<input name="email" id="email" type="email" value="@Model.Email" />
+								<span style="margin-left: 15px" id='email1'></span>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">
+								Địa chỉ <sup style="color: red">*</sup>
+							</label>
+							<div class="controls">
+								<textarea name="diachi" id="diachi" placeholder="Địa chỉ">@Model.Diachi</textarea>
+								<span style="margin-left: 15px" id='diachi1'></span>
+							</div>
+						</div>
+
+						<div class="control-group">
+							<div class="controls">
+								<input type="submit" name="submitAccount" value="Cập nhật" class="exclusive shopBtn">
+							</div>
+						</div>
+					</form>
+				</div>
+
+				<div class="tab-pane fade active in" id="changepassword">
+					<form class="form-horizontal" action="/Account/ChangePassword" method="POST" onsubmit="return CheckForm2()">
+
+						<input type="hidden" name="makh" value="@Model.MaKH" />
+
+						<div class="control-group">
+							@*<label class="control-label">
+						Mật khẩu cũ <sup style="color: red">*</sup>
+					</label>*@
+							<div class="controls">
+								<input type="password" name="matkhaucu" placeholder="Mật khẩu hiện tại!" maxlength="20" id="oldpassword">
+								<span style="margin-left: 15px" id='oldpassword1'></span>
+							</div>
+						</div>
+
+						<div class="control-group">
+							@*<label class="control-label">
+						Mật khẩu mới <sup style="color: red">*</sup>
+					</label>*@
+							<div class="controls">
+								<input type="password" name="matkhau" onkeyup='check();'
+									   placeholder="Mật khẩu mới" maxlength="20" id="password" />
+								<span style="margin-left: 15px" id='password1'></span>
+							</div>
+						</div>
+
+						<div class="control-group">
+
+							@*<label class="control-label">Xác nhận mật khẩu <sup style="color: red">*</sup></label>*@
+							<div class="controls">
+								<input type="password" placeholder="Xác nhận mật khẩu mới."
+									   maxlength="20" id="confirm_password" onkeyup='check();'>
+								<span style="margin-left: 15px" id='confirm_password1'></span>
+							</div>
+						</div>
+						<div class="control-group">
+							<div class="controls">
+								<input type="submit" name="submitAccount" value="Cập nhật" class="exclusive shopBtn">
+							</div>
+						</div>
+					</form>
+				</div>
+
+
+			</div>
+
+
+		</div>
+
+
+	</div>
+</div>
+
+<script>
+	// Xác nhận mật khẩu
+	var check = function () {
+		if (document.getElementById('password').value == document
+			.getElementById('confirm_password').value) {
+			document.getElementById('confirm_password1').style.color = 'green';
+			document.getElementById('confirm_password1').innerHTML = 'Xác nhận mật khẩu chính xác!';
+		} else {
+			document.getElementById('confirm_password1').style.color = 'red';
+			document.getElementById('confirm_password1').innerHTML = 'Xác nhận mật khẩu không đúng!';
+		}
+
+	}
+
+	function CheckForm() {
+		// Bước 1: Lấy các giá trị cần nhập
+		var hoten = document.getElementById('hoten').value;
+		var email = document.getElementById('email').value;
+		var sdt = document.getElementById('sdt').value;
+		var diachi = document.getElementById('diachi').value;
+
+
+
+		// Bước 2: Kiểm tra dữ liệu hợp lệ hay không
+		if (hoten == '') {
+			document.getElementById('hoten1').style.color = 'red';
+			document.getElementById('hoten1').innerHTML = 'Vui lòng nhập họ tên!';
+		}
+		else if (sdt == '') {
+			document.getElementById('sodienthoai1').style.color = 'red';
+			document.getElementById('sodienthoai1').innerHTML = 'Vui lòng nhập số điện thoại!';
+		}
+
+		else if (email == '') {
+			document.getElementById('email1').style.color = 'red';
+			document.getElementById('email1').innerHTML = 'Vui lòng nhập email!';
+		}
+
+		else if (diachi == '') {
+			document.getElementById('diachi1').style.color = 'red';
+			document.getElementById('diachi1').innerHTML = 'Vui lòng nhập địa chỉ!';
+		}
+		else {
+
+			return true;
+		}
+
+		return false;
+	}
+
+	function CheckForm2() {
+	
+		var old = document.getElementById('oldpassword').value;
+		var password = document.getElementById('password').value;
+		var confirm_password = document.getElementById('confirm_password').value;
+
+
+
+		// Bước 2: Kiểm tra dữ liệu hợp lệ hay không
+		if (old == '') {
+			document.getElementById('oldpassword1').style.color = 'red';
+			document.getElementById('oldpassword1').innerHTML = 'Vui lòng nhập mật khẩu hiện tại!';
+		}
+		else if (password == '') {
+			document.getElementById('password1').style.color = 'red';
+			document.getElementById('password1').innerHTML = 'Vui lòng nhập mật khẩu mới!';
+		}
+
+		else if (confirm_password == '') {
+			document.getElementById('confirm_password1').style.color = 'red';
+			document.getElementById('confirm_password1').innerHTML = 'Vui lòng xác nhận mật khẩu!';
+		}
+
+		else if (confirm_password != password) {
+			document.getElementById('confirm_password1').style.color = 'red';
+			document.getElementById('confirm_password1').innerHTML = 'Xác nhận mật khẩu không đúng!';
+		}
+
+		else {
+
+			return true;
+		}
+
+		return false;
+	}
+
+</script>
+
